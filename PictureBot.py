@@ -5,8 +5,11 @@ from functions_for_picturebot import register_handlers
 
 BOT_KEY = '5755493253:AAHm-J87KioNywaomgOhGemBOSojZtkAByw'
 async def main(BOT_KEY):
-    bot = aiogram.Bot(BOT_KEY)
-    dp = aiogram.Dispatcher(bot)
+    loop = asyncio.get_event_loop()
+    bot = aiogram.Bot(BOT_KEY,loop = loop)
+    # bot['semofor'] = asyncio.Lock()
+    bot['semofor'] = asyncio.Semaphore(1)
+    dp = aiogram.Dispatcher(bot,loop = loop)
 
     register_handlers(dp)
 
